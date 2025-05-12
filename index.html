@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS3 Transitions and Animations</title>
+  <style>
+    /* CSS for the button background color animation */
+    @keyframes moveButton {
+      0% {
+        background-color: blue;
+      }
+      100% {
+        background-color: green;
+      }
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.5s ease;
+    }
+
+    button:hover {
+      animation: moveButton 1s forwards;
+    }
+
+    /* CSS for the theme toggle button animation */
+    @keyframes animateButton {
+      0% {
+        background-color: #4CAF50;
+      }
+      50% {
+        background-color: #f44336;
+      }
+      100% {
+        background-color: #4CAF50;
+      }
+    }
+
+    button.animate-button {
+      animation: animateButton 1s;
+    }
+
+    /* Style for light and dark mode */
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #content {
+      padding: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <button id="toggle-theme">Toggle Theme</button>
+  <div id="content">This is some content.</div>
+
+  <script>
+    // JavaScript to toggle theme and store preference in localStorage
+    document.getElementById('toggle-theme').addEventListener('click', function() {
+      // Trigger the animation by adding/removing a class
+      this.classList.add('animate-button');
+      
+      // Remove the animation class after 1 second to allow it to re-trigger on next click
+      setTimeout(() => {
+        this.classList.remove('animate-button');
+      }, 1000);
+
+      // Check the current theme
+      let currentTheme = localStorage.getItem('theme') || 'light';
+      
+      // Toggle theme
+      if (currentTheme === 'light') {
+        document.body.style.backgroundColor = '#333';
+        document.body.style.color = '#fff';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.body.style.backgroundColor = '#fff';
+        document.body.style.color = '#000';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // Load the theme from localStorage when the page loads
+    window.onload = function() {
+      let savedTheme = localStorage.getItem('theme') || 'light';
+      if (savedTheme === 'dark') {
+        document.body.style.backgroundColor = '#333';
+        document.body.style.color = '#fff';
+      } else {
+        document.body.style.backgroundColor = '#fff';
+        document.body.style.color = '#000';
+      }
+    };
+  </script>
+</body>
+</html>
